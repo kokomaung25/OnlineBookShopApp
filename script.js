@@ -2,71 +2,75 @@
 const books = [
     {
         id: 1,
-        title: "The Midnight Library",
-        author: "Matt Haig",
-        price: 14.99,
+        title: "ဂန္ဓဝင် မမ",
+        author: "အောင်ချိမ့်",
+        price: 5000,
         category: "Fiction",
         cover: "midnight-library",
-        imgUrl:"images/1.jpg",
-        description: "Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived."
+        imgUrl:"images/1.webp",
+        description: ""
     },
     {
         id: 2,
         title: "Atomic Habits",
         author: "James Clear",
         price: 16.99,
-        category: "Non-Fiction",
+        category: "Fiction",
         cover: "atomic-habits",
-        imgUrl:"images/2.jpg",
-        description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day."
+        imgUrl:"images/2.png",
+        description: ""
     },
     {
         id: 3,
         title: "Project Hail Mary",
         author: "Andy Weir",
         price: 18.99,
-        category: "Science Fiction",
+        category: "Fiction",
         cover: "project-hail-mary",
-        imgUrl:"images/3.jpg",
-        description: "A lone astronaut must save the earth from disaster in this incredible new science-based thriller from the #1 New York Times bestselling author of The Martian."
+        imgUrl:"images/3.png",
+        description: ""
     },
     {
         id: 4,
         title: "The Silent Patient",
         author: "Alex Michaelides",
         price: 13.99,
-        category: "Mystery",
+        category: "Fiction",
         cover: "silent-patient",
-        imgUrl:"images/4.jpg",
-        description: "A shocking psychological thriller of a woman's act of violence against her husband—and of the therapist obsessed with uncovering her motive."
+        imgUrl:"images/4.webp",
+        description: ""
     },
     {
         id: 5,
         title: "Educated",
         author: "Tara Westover",
         price: 15.99,
-        category: "Biography",
+        category: "Fiction",
         cover: "educated",
-        description: "An unforgettable memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University."
+        imgUrl:"images/5.png",
+        description: ""
     },
     {
         id: 6,
         title: "Dune",
         author: "Frank Herbert",
         price: 12.99,
-        category: "Science Fiction",
+        category: "Fiction",
         cover: "dune",
-        description: "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world."
+        imgUrl:"images/6.png",
+        description: ""
     },
     {
         id: 7,
         title: "The Thursday Murder Club",
         author: "Richard Osman",
         price: 14.49,
-        category: "Mystery",
+        category: "Fiction",
         cover: "thursday-murder-club",
-        description: "In a peaceful retirement village, four unlikely friends meet weekly to discuss unsolved crimes; together they call themselves the Thursday Murder Club."
+        imgUrl:"images/7.png",
+        description: ""
     },
+    
     {
         id: 8,
         title: "Klara and the Sun",
@@ -74,7 +78,18 @@ const books = [
         price: 17.99,
         category: "Fiction",
         cover: "klara-and-the-sun",
-        description: "From the Nobel Prize-winning author, a magnificent new novel about the relationship between an Artificial Friend and the human child she is designed to serve."
+        imgUrl:"images/8.webp",
+        description: ""
+    },
+    {
+        id: 9,
+        title: "Klara and the Sun",
+        author: "Kazuo Ishiguro",
+        price: 17.99,
+        category: "Fiction",
+        cover: "klara-and-the-sun",
+        imgUrl:"",
+        description: ""
     }
 ];
 
