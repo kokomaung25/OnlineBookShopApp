@@ -1,0 +1,69 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f5f2;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Merriweather', serif;
+}
+
+.book-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.cart-item {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+
+.checkout-step {
+    transition: all 0.3s ease;
+}
+
+.step-indicator {
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+    background-color: #1d3557;
+    color: white;
+}
+
+.step-indicator.completed {
+    background-color: #457b9d;
+    color: white;
+}
+
+.checkout-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.checkout-container.active {
+    max-height: 2000px;
+}
+
+.payment-method-option {
+    transition: all 0.2s ease;
+}
+
+.payment-method-option.selected {
+    border-color: #1d3557;
+    background-color: #f0f7ff;
+}

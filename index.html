@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Delivery Bookshop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-[#1d3557] text-white shadow-lg">
+            <div class="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <h6 class="text-2xl font-bold">Online Delivery Bookshop</h6>
+                </div>
+                
+                <div class="w-full md:w-1/2 mb-4 md:mb-0 md:mx-4">
+                    <div class="relative">
+                        <input id="search-input" type="text" placeholder="Search for books by title, author, or category" 
+                            class="w-full px-4 py-2 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#457b9d]">
+                        <button id="search-button" class="absolute right-0 top-0 h-full px-4 text-gray-600 hover:text-[#1d3557]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="relative mr-4">
+                        <button id="cart-button" class="text-white hover:text-[#a8dadc] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span id="cart-count" class="badge bg-[#e63946] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                    <button id="sign-in-button" class="bg-[#e63946] hover:bg-[#d62828] text-white px-4 py-2 rounded-md transition-colors">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <!-- Categories -->
+            <div id="main-content" class="mb-8">
+                <div class="flex flex-wrap gap-2">
+                    <button class="category-btn bg-[#457b9d] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#1d3557] transition-colors">All Books</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Fiction</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Non-Fiction</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Science Fiction</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Mystery</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Biography</button>
+                    <span style="width: 100px;"></span>
+                    <button id="myorder-history-button" class="bg-[#e63946] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#d62828] transition-colors">My Order History</button>    
+                </div>
+            
+
+                <!-- Featured Books -->
+                <div class="mb-12 mt-8">
+                    <h2 class="text-2xl font-bold mb-6 text-[#1d3557]">Featured Books</h2>
+                    <div id="books-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Books will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Registration/Login -->
+            <div id="user-auth" class="hidden">
+                <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <button id="back-to-shop-from-auth" class="flex items-center text-[#1d3557] hover:text-[#457b9d] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Back to Shopping
+                        </button>
+                        <h2 class="text-2xl font-bold text-[#1d3557]">Account</h2>
+                        <div class="w-24"></div> <!-- Spacer for alignment -->
+                    </div>
+
+                    <div class="flex border-b mb-6">
+                        <button id="login-tab" class="px-4 py-2 border-b-2 border-[#1d3557] text-[#1d3557] font-medium">Login</button>
+                        <button id="register-tab" class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-[#1d3557]">Register</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div id="login-form-container">
+                        <form id="login-form" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="login-email">Email Address</label>
+                                <input type="email" id="login-email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="login-password">Password</label>
+                                <input type="password" id="login-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2">
+                                    <span class="text-sm text-gray-600">Remember me</span>
+                                </label>
+                                <a href="#" class="text-sm text-[#457b9d] hover:underline">Forgot password?</a>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-[#1d3557] hover:bg-[#457b9d] text-white py-2 rounded-md transition-colors">
+                                Login
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div id="register-form-container" class="hidden">
+                        <form id="register-form" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="register-name">Full Name</label>
+                                <input type="text" id="register-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="register-email">Email Address</label>
+                                <input type="email" id="register-email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="register-password">Password</label>
+                                <input type="password" id="register-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="register-confirm-password">Confirm Password</label>
+                                <input type="password" id="register-confirm-password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-[#1d3557] hover:bg-[#457b9d] text-white py-2 rounded-md transition-colors">
+                                Register
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Process -->
+            <div id="checkout-process" class="hidden">
+                <!-- Checkout Steps -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center">
+                        <button id="back-to-shop" class="flex items-center text-[#1d3557] hover:text-[#457b9d] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Back to Shopping
+                        </button>
+                        <h2 class="text-2xl font-bold text-[#1d3557]">Checkout</h2>
+                        <div class="w-24"></div> <!-- Spacer for alignment -->
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-6 mb-8">
+                        <div class="flex items-center w-full">
+                            <div class="step-indicator active flex items-center justify-center w-8 h-8 rounded-full border-2 border-[#1d3557] font-bold">1</div>
+                            <div class="flex-grow h-1 mx-2 bg-gray-300" id="progress-1-2"></div>
+                            <div class="step-indicator flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 font-bold">2</div>
+                            <div class="flex-grow h-1 mx-2 bg-gray-300" id="progress-2-3"></div>
+                            <div class="step-indicator flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 font-bold">3</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between text-sm text-gray-600 mb-8 px-2">
+                        <div class="text-center w-1/3">
+                            <span>Review Cart</span>
+                        </div>
+                        <div class="text-center w-1/3">
+                            <span>Shipping Details</span>
+                        </div>
+                        <div class="text-center w-1/3">
+                            <span>Payment & Confirmation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Review Cart -->
+                <div id="checkout-step-1" class="checkout-container active bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-[#1d3557]">Review Your Cart</h3>
+                    
+                    <div id="checkout-cart-items" class="mb-6">
+                        <!-- Cart items will be inserted here -->
+                    </div>
+                    
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Subtotal:</span>
+                            <span id="checkout-subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Shipping:</span>
+                            <span id="checkout-shipping">$4.99</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-600">Tax (8%):</span>
+                            <span id="checkout-tax">$0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-lg mt-4">
+                            <span>Total:</span>
+                            <span id="checkout-total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                        <button id="to-step-2" class="bg-[#1d3557] hover:bg-[#457b9d] text-white px-6 py-2 rounded-md transition-colors">
+                            Continue to Shipping
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Shipping Details -->
+                <div id="checkout-step-2" class="checkout-container bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-[#1d3557]">Shipping Details</h3>
+                    
+                    <form id="shipping-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="email">Email Address</label>
+                            <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="full-name">Full Name</label>
+                            <input type="text" id="full-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="address">Street Address</label>
+                            <input type="text" id="address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="city">City</label>
+                            <input type="text" id="city" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="state">State/Province</label>
+                            <input type="text" id="state" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="zip">ZIP/Postal Code</label>
+                            <input type="text" id="zip" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="country">Country</label>
+                            <select id="country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                            </select>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-gray-700 text-sm font-medium mb-1" for="shipping-method">Shipping Method</label>
+                            <div class="mt-2 space-y-3">
+                                <label class="flex items-center p-3 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="shipping-method" value="standard" class="mr-2" checked>
+                                    <div>
+                                        <p class="font-medium">Standard Shipping</p>
+                                        <p class="text-sm text-gray-500">Delivery in 5-7 business days</p>
+                                    </div>
+                                    <span class="ml-auto font-medium">$4.99</span>
+                                </label>
+                                
+                                <label class="flex items-center p-3 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="shipping-method" value="express" class="mr-2">
+                                    <div>
+                                        <p class="font-medium">Express Shipping</p>
+                                        <p class="text-sm text-gray-500">Delivery in 2-3 business days</p>
+                                    </div>
+                                    <span class="ml-auto font-medium">$9.99</span>
+                                </label>
+                                
+                                <label class="flex items-center p-3 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="shipping-method" value="overnight" class="mr-2">
+                                    <div>
+                                        <p class="font-medium">Overnight Shipping</p>
+                                        <p class="text-sm text-gray-500">Delivery next business day</p>
+                                    </div>
+                                    <span class="ml-auto font-medium">$19.99</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-6 flex justify-between">
+                        <button id="back-to-step-1" class="border border-[#1d3557] text-[#1d3557] hover:bg-gray-100 px-6 py-2 rounded-md transition-colors">
+                            Back to Cart
+                        </button>
+                        <button id="to-step-3" class="bg-[#1d3557] hover:bg-[#457b9d] text-white px-6 py-2 rounded-md transition-colors">
+                            Continue to Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment & Confirmation -->
+                <div id="checkout-step-3" class="checkout-container bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-[#1d3557]">Payment Information</h3>
+                    
+                    <div class="mb-6">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        This is a demo checkout. No real payment will be processed.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form id="payment-form" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1">Payment Method</label>
+                                <div class="grid grid-cols-2 gap-4 mt-2">
+                                    <div class="payment-method-option border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50 selected" data-payment="visa">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="font-medium">Visa</span>
+                                            <svg class="h-8 w-auto" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="36" height="24" rx="4" fill="#1434CB"/>
+                                                <path d="M14.5 16.5H12L10 7.5H12.5L14.5 16.5Z" fill="white"/>
+                                                <path d="M21.5 7.5C20.3 7.5 19 8 19 9.5C19 11.5 21.5 11.5 21.5 13.5C21.5 15 20 15 19 15L18.5 13C19.5 13 20.5 12.5 20.5 11.5C20.5 9.5 18 9.5 18 7.5C18 6 19 5.5 20.5 5.5L21.5 7.5Z" fill="white"/>
+                                                <path d="M24.5 16.5H27L28 14H30.5L29.5 16.5H32L34 7.5H31.5L30.5 10H28L29 7.5H26.5L24.5 16.5Z" fill="white"/>
+                                                <path d="M7.5 7.5L4 16.5H6.5L7 15H10L10.2 16.5H12.5L11 7.5H7.5ZM7.7 13L8.5 10L9.3 13H7.7Z" fill="white"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="radio" name="payment-method" value="visa" class="mr-2" checked>
+                                            <span class="text-sm text-gray-600">Credit/Debit Card</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="payment-method-option border border-gray-300 rounded-md p-4 cursor-pointer hover:bg-gray-50" data-payment="mastercard">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="font-medium">Mastercard</span>
+                                            <svg class="h-8 w-auto" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="36" height="24" rx="4" fill="#FF5F00"/>
+                                                <circle cx="13" cy="12" r="7" fill="#EB001B"/>
+                                                <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M18 17.5C19.8075 16.0823 21 13.7033 21 11C21 8.29668 19.8075 5.91766 18 4.5C16.1925 5.91766 15 8.29668 15 11C15 13.7033 16.1925 16.0823 18 17.5Z" fill="#FF8900"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="radio" name="payment-method" value="mastercard" class="mr-2">
+                                            <span class="text-sm text-gray-600">Credit/Debit Card</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-1" for="card-number">Card Number</label>
+                                <div class="relative">
+                                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                                    <div class="absolute right-3 top-2 flex space-x-1" id="card-type-icon">
+                                        <!-- Card icon will be shown here -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-1" for="expiry">Expiration Date</label>
+                                    <input type="text" id="expiry" placeholder="MM/YY" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 text-sm font-medium mb-1" for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-4 border-t">
+                                <h4 class="font-medium mb-2">Billing Address</h4>
+                                <label class="flex items-center mb-4">
+                                    <input type="checkbox" id="same-as-shipping" class="mr-2" checked>
+                                    <span class="text-sm">Same as shipping address</span>
+                                </label>
+                                
+                                <div id="billing-address-form" class="hidden space-y-4">
+                                    <!-- Billing address fields would go here, similar to shipping address -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="border-t pt-4">
+                        <h4 class="font-medium mb-2">Order Summary</h4>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Subtotal:</span>
+                            <span id="summary-subtotal">$0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Shipping:</span>
+                            <span id="summary-shipping">$4.99</span>
+                        </div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-gray-600">Tax (8%):</span>
+                            <span id="summary-tax">$0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-lg mt-2">
+                            <span>Total:</span>
+                            <span id="summary-total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-between">
+                        <button id="back-to-step-2" class="border border-[#1d3557] text-[#1d3557] hover:bg-gray-100 px-6 py-2 rounded-md transition-colors">
+                            Back to Shipping
+                        </button>
+                        <button id="place-order" class="bg-[#e63946] hover:bg-[#d62828] text-white px-6 py-2 rounded-md transition-colors">
+                            Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Confirmation -->
+            <div id="order-confirmation" class="hidden bg-white rounded-lg shadow-md p-8 text-center">
+                <div class="mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-[#1d3557] mb-2">Thank You for Your Order!</h2>
+                    <p class="text-gray-600 mb-4">Your order has been placed successfully.</p>
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4 inline-block">
+                        <p class="font-medium">Order #: <span id="order-number" class="text-[#1d3557]">BOK-12345</span></p>
+                    </div>
+                    <p class="text-gray-600">A confirmation email has been sent to <span id="confirmation-email" class="font-medium">your email address</span>.</p>
+                </div>
+                
+                <div class="border-t border-b py-6 mb-6">
+                    <h3 class="font-bold mb-4 text-[#1d3557]">Order Details</h3>
+                    <div id="confirmation-items" class="space-y-4 mb-4">
+                        <!-- Order items will be inserted here -->
+                    </div>
+                    <div class="flex justify-between font-bold">
+                        <span>Total:</span>
+                        <span id="confirmation-total">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="font-bold mb-2 text-[#1d3557]">Shipping Information</h3>
+                    <p id="shipping-address" class="text-gray-600">
+                        John Doe<br>
+                        123 Main St<br>
+                        Anytown, ST 12345<br>
+                        United States
+                    </p>
+                    <p class="text-gray-600 mt-2">
+                        Estimated delivery: <span id="delivery-date" class="font-medium">June 15, 2023</span>
+                    </p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="continue-shopping" class="bg-[#1d3557] hover:bg-[#457b9d] text-white px-6 py-2 rounded-md transition-colors">
+                        Continue Shopping
+                    </button>
+                    <button class="border border-[#1d3557] text-[#1d3557] hover:bg-gray-100 px-6 py-2 rounded-md transition-colors">
+                        Track Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Order History Section -->
+            <div id="order-history-section" class="hidden bg-white rounded-lg shadow-md p-8">
+                <div class="mb-6 flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-[#1d3557]">Order History & Status</h2>
+                    <button id="back-to-shopping" class="text-[#1d3557] hover:text-[#457b9d] flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back
+                    </button>
+                </div>
+                <div id="order-history-list">
+                    <!-- Order history will be loaded here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Cart Sidebar -->
+        <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+            <div class="p-4 bg-[#1d3557] text-white flex justify-between items-center">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-white hover:text-[#a8dadc]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="cart-items" class="p-4 overflow-y-auto max-h-[calc(100vh-180px)]">
+                <!-- Cart items will be dynamically inserted here -->
+                <div id="empty-cart-message" class="text-center text-gray-500 py-8" >
+                    Your cart is empty
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex justify-between mb-4">
+                    <span class="font-bold">Total:</span>
+                    <span id="cart-total" class="font-bold">$0.00</span>
+                </div>
+                <button id="checkout-button" class="w-full bg-[#e63946] hover:bg-[#d62828] text-white py-2 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Checkout
+                </button>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+        <!-- Footer -->
+        <footer class="bg-[#1d3557] text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Online Delivery Bookshop</h3>
+                        <p class="text-sm text-gray-300">Your one-stop destination for all your reading needs. Quality books delivered right to your doorstep.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li><a href="#" class="hover:text-[#a8dadc]">About Us</a></li>
+                            <li><a href="#" class="hover:text-[#a8dadc]">Contact</a></li>
+                            <li><a href="#" class="hover:text-[#a8dadc]">FAQ</a></li>
+                            <li><a href="#" class="hover:text-[#a8dadc]">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                        <p class="text-sm text-gray-300 mb-2">Subscribe to get updates on new releases and special offers</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Your email" class="px-3 py-2 text-gray-800 rounded-l-md focus:outline-none flex-grow">
+                            <button class="bg-[#e63946] hover:bg-[#d62828] px-4 py-2 rounded-r-md transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t border-gray-700 text-center text-sm text-gray-400">
+                    &copy; 2025 Online Delivery Bookshop. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
