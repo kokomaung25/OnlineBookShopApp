@@ -4,91 +4,101 @@ const books = [
         id: 1,
         title: "ဂန္ဓဝင် မမ",
         author: "အောင်ချိမ့်",
-        price: 5000,
+        price: 7000,
         category: "Fiction",
-        cover: "midnight-library",
+        cover: "",
         imgUrl:"images/1.webp",
         description: ""
     },
     {
         id: 2,
-        title: "Atomic Habits",
-        author: "James Clear",
-        price: 16.99,
+        title: "သူငယ်ချင်းလို့ပဲဆက်၍ခေါ်မည်...ခိုင်",
+        author: "တက္ကသိုလ်ဘုန်းနိုင်",
+        price: 25000,
         category: "Fiction",
-        cover: "atomic-habits",
+        cover: "",
         imgUrl:"images/2.png",
         description: ""
     },
     {
         id: 3,
-        title: "Project Hail Mary",
-        author: "Andy Weir",
-        price: 18.99,
+        title: "လင်္ကာဒီပချစ်သူ",
+        author: "ချစ်ဦးညို",
+        price: 20000,
         category: "Fiction",
-        cover: "project-hail-mary",
+        cover: "",
         imgUrl:"images/3.png",
         description: ""
     },
     {
         id: 4,
-        title: "The Silent Patient",
-        author: "Alex Michaelides",
-        price: 13.99,
+        title: "မင်းက အောင်ချိမ့်လား",
+        author: "အောင်ချိမ့်",
+        price: 25000,
         category: "Fiction",
-        cover: "silent-patient",
+        cover: "",
         imgUrl:"images/4.webp",
         description: ""
     },
     {
         id: 5,
-        title: "Educated",
-        author: "Tara Westover",
-        price: 15.99,
+        title: "မြိုင်",
+        author: "ဗန်းမော်တင်အောင်",
+        price: 30000,
         category: "Fiction",
-        cover: "educated",
+        cover: "",
         imgUrl:"images/5.png",
         description: ""
     },
     {
         id: 6,
-        title: "Dune",
-        author: "Frank Herbert",
-        price: 12.99,
+        title: "အရှေ့ကနေဝန်း ထွက်သည့်ပမာ",
+        author: "သိန်းဖေမြင့်",
+        price: 30000,
         category: "Fiction",
-        cover: "dune",
+        cover: "",
         imgUrl:"images/6.png",
         description: ""
     },
     {
         id: 7,
-        title: "The Thursday Murder Club",
-        author: "Richard Osman",
-        price: 14.49,
-        category: "Fiction",
-        cover: "thursday-murder-club",
+        title: "တာတေ စနေသား",
+        author: "ဦးနု",
+        price: 30000,
+        category: "Biography",
+        cover: "",
         imgUrl:"images/7.png",
         description: ""
     },
     
     {
         id: 8,
-        title: "Klara and the Sun",
-        author: "Kazuo Ishiguro",
-        price: 17.99,
-        category: "Fiction",
-        cover: "klara-and-the-sun",
+        title: "တစ်သက်တာမှတ်တမ်းနှင့် အတွေးအခေါ်များ",
+        author: "‌ရွှေဥဒေါင်း",
+        price: 50000,
+        category: "Biography",
+        cover: "",
         imgUrl:"images/8.webp",
         description: ""
     },
     {
         id: 9,
-        title: "Klara and the Sun",
-        author: "Kazuo Ishiguro",
-        price: 17.99,
-        category: "Fiction",
-        cover: "klara-and-the-sun",
-        imgUrl:"",
+        title: "သူလိုလူ",
+        author: "ဂျာနယ်ကျော် မမလေး",
+        price: 30000,
+        category: "Biography",
+        cover: "",
+        imgUrl:"images/9.png",
+        description: ""
+    },
+    {
+        id: 10,
+        title: "ရာဇဝင်ကို ဆင်ခြင်ခြင်း",
+        author: "ဒေါက်တာ ဦးသန်းထွန်း(ရွှေဘို)",
+        price: 30000,
+        category: "History",
+        cover: "",
+        imgUrl:"images/10.png",
         description: ""
     }
 ];
@@ -235,10 +245,10 @@ function displayBooks(booksToDisplay) {
             </div>
             <div class="p-4">
                 <h3 class="font-bold text-lg mb-1">${book.title}</h3>
-                <p class="text-gray-600 text-sm mb-2">by ${book.author}</p>
+                <p class="text-gray-600 text-sm mb-2"> ${book.author}</p>
                 <p class="text-gray-700 text-sm mb-4 line-clamp-2 h-10">${book.description}</p>
                 <div class="flex items-center justify-between">
-                    <span class="font-bold text-lg">$${book.price.toFixed(2)}</span>
+                    <span class="font-bold text-lg">${book.price.toFixed(2)}Ks</span>
                     <button class="add-to-cart bg-[#457b9d] hover:bg-[#1d3557] text-white px-3 py-1 rounded-md transition-colors" 
                         onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
                         Add to Cart
