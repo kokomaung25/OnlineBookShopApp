@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Delivery Bookshop</title>
+    <title>KKM Online Delivery Bookshop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -17,7 +17,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
-                    <h6 class="text-2xl font-bold">Online Delivery Bookshop</h6>
+                    <h6 class="text-2xl font-bold">KKM Online Delivery Bookshop</h6>
                 </div>
                 
                 <div class="w-full md:w-1/2 mb-4 md:mb-0 md:mx-4">
@@ -56,8 +56,8 @@
                     <button class="category-btn bg-[#457b9d] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#1d3557] transition-colors">All Books</button>
                     <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Fiction</button>
                     <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Non-Fiction</button>
-                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Science Fiction</button>
-                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Mystery</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Myanmar History</button>
+                    <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Poetry</button>
                     <button class="category-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">Biography</button>
                     <span style="width: 100px;"></span>
                     <button id="myorder-history-button" class="bg-[#e63946] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#d62828] transition-colors">My Order History</button>    
@@ -199,19 +199,19 @@
                     <div class="border-t pt-4">
                         <div class="flex justify-between mb-2">
                             <span class="text-gray-600">Subtotal:</span>
-                            <span id="checkout-subtotal">$0.00</span>
+                            <span id="checkout-subtotal">0.00Ks</span>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span class="text-gray-600">Shipping:</span>
-                            <span id="checkout-shipping">$4.99</span>
+                            <span id="checkout-shipping">0.00Ks</span>
                         </div>
                         <div class="flex justify-between mb-2">
                             <span class="text-gray-600">Tax (8%):</span>
-                            <span id="checkout-tax">$0.00</span>
+                            <span id="checkout-tax">0.00Ks</span>
                         </div>
                         <div class="flex justify-between font-bold text-lg mt-4">
                             <span>Total:</span>
-                            <span id="checkout-total">$0.00</span>
+                            <span id="checkout-total">0.00Ks</span>
                         </div>
                     </div>
                     
@@ -261,6 +261,7 @@
                             <label class="block text-gray-700 text-sm font-medium mb-1" for="country">Country</label>
                             <select id="country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#457b9d]" required>
                                 <option value="">Select Country</option>
+                                <option value="MM">Myanmar</option>
                                 <option value="US">United States</option>
                                 <option value="CA">Canada</option>
                                 <option value="UK">United Kingdom</option>
@@ -284,7 +285,7 @@
                                         <p class="font-medium">Standard Shipping</p>
                                         <p class="text-sm text-gray-500">Delivery in 5-7 business days</p>
                                     </div>
-                                    <span class="ml-auto font-medium">$4.99</span>
+                                    <span class="ml-auto font-medium">5000Ks</span>
                                 </label>
                                 
                                 <label class="flex items-center p-3 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50">
@@ -293,7 +294,7 @@
                                         <p class="font-medium">Express Shipping</p>
                                         <p class="text-sm text-gray-500">Delivery in 2-3 business days</p>
                                     </div>
-                                    <span class="ml-auto font-medium">$9.99</span>
+                                    <span class="ml-auto font-medium">9000Ks</span>
                                 </label>
                                 
                                 <label class="flex items-center p-3 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50">
@@ -302,7 +303,7 @@
                                         <p class="font-medium">Overnight Shipping</p>
                                         <p class="text-sm text-gray-500">Delivery next business day</p>
                                     </div>
-                                    <span class="ml-auto font-medium">$19.99</span>
+                                    <span class="ml-auto font-medium">15000Ks</span>
                                 </label>
                             </div>
                         </div>
@@ -422,19 +423,19 @@
                         <h4 class="font-medium mb-2">Order Summary</h4>
                         <div class="flex justify-between mb-1">
                             <span class="text-gray-600">Subtotal:</span>
-                            <span id="summary-subtotal">$0.00</span>
+                            <span id="summary-subtotal">0.00Ks</span>
                         </div>
                         <div class="flex justify-between mb-1">
                             <span class="text-gray-600">Shipping:</span>
-                            <span id="summary-shipping">$4.99</span>
+                            <span id="summary-shipping">5000Ks</span>
                         </div>
                         <div class="flex justify-between mb-1">
                             <span class="text-gray-600">Tax (8%):</span>
-                            <span id="summary-tax">$0.00</span>
+                            <span id="summary-tax">0.00Ks</span>
                         </div>
                         <div class="flex justify-between font-bold text-lg mt-2">
                             <span>Total:</span>
-                            <span id="summary-total">$0.00</span>
+                            <span id="summary-total">0.00Ks</span>
                         </div>
                     </div>
                     
@@ -472,7 +473,7 @@
                     </div>
                     <div class="flex justify-between font-bold">
                         <span>Total:</span>
-                        <span id="confirmation-total">$0.00</span>
+                        <span id="confirmation-total">0.00Ks</span>
                     </div>
                 </div>
                 
@@ -485,7 +486,7 @@
                         United States
                     </p>
                     <p class="text-gray-600 mt-2">
-                        Estimated delivery: <span id="delivery-date" class="font-medium">June 15, 2023</span>
+                        Estimated delivery: <span id="delivery-date" class="font-medium">June 15, 2025</span>
                     </p>
                 </div>
                 
@@ -535,7 +536,7 @@
             <div class="p-4 border-t">
                 <div class="flex justify-between mb-4">
                     <span class="font-bold">Total:</span>
-                    <span id="cart-total" class="font-bold">$0.00</span>
+                    <span id="cart-total" class="font-bold">0.00Ks</span>
                 </div>
                 <button id="checkout-button" class="w-full bg-[#e63946] hover:bg-[#d62828] text-white py-2 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Checkout
@@ -575,7 +576,7 @@
                     </div>
                 </div>
                 <div class="mt-8 pt-4 border-t border-gray-700 text-center text-sm text-gray-400">
-                    &copy; 2025 Online Delivery Bookshop. All rights reserved.
+                    &#64; KKM 2025 Online Delivery Bookshop. All rights reserved.
                 </div>
             </div>
         </footer>

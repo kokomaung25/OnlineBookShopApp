@@ -5,7 +5,7 @@ const books = [
         title: "ဂန္ဓဝင် မမ",
         author: "အောင်ချိမ့်",
         price: 7000,
-        category: "Fiction",
+        category: "Poetry",
         cover: "",
         imgUrl:"images/1.webp",
         description: ""
@@ -35,7 +35,7 @@ const books = [
         title: "မင်းက အောင်ချိမ့်လား",
         author: "အောင်ချိမ့်",
         price: 25000,
-        category: "Fiction",
+        category: "Poetry",
         cover: "",
         imgUrl:"images/4.webp",
         description: ""
@@ -96,11 +96,131 @@ const books = [
         title: "ရာဇဝင်ကို ဆင်ခြင်ခြင်း",
         author: "ဒေါက်တာ ဦးသန်းထွန်း(ရွှေဘို)",
         price: 30000,
-        category: "History",
+        category: "Myanmar History",
         cover: "",
         imgUrl:"images/10.png",
         description: ""
-    }
+    },
+    {
+        id: 11,
+        title: "ဓားတောင်ကိုကျော်၍ မီးပင်လယ်ကိုဖြတ်မည်",
+        author: "မြသန်းတင့်",
+        price: 20000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/11.png",
+        description: ""
+    },
+    {
+        id: 12,
+        title: "မေ",
+        author: "ဒဂုန်တာရာ",
+        price: 15000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/12.png",
+        description: ""
+    },
+    {
+        id: 13,
+        title: "ပျောက်သောလမ်းမှာ စမ်းတဝါး",
+        author: "မိုးမိုး(အင်းလျား)",
+        price: 8000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/13.png",
+        description: ""
+    },
+    {
+        id: 14,
+        title: "မျိုးဆက်သစ် တိုးတက်ရစ်ဖို့",
+        author: "အောင်သင်း",
+        price: 15000,
+        category: "Non-Fiction",
+        cover: "",
+        imgUrl:"images/14.png",
+        description: ""
+    },
+    {
+        id: 15,
+        title: "ငရဲဆိုချိုနဲ့လားဗျို့",
+        author: "ဦးနု",
+        price: 20000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/15.png",
+        description: ""
+    },
+    {
+        id: 16,
+        title: " မအိမ်ကံ",
+        author: "ခင်ခင်ထူး",
+        price: 30000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/16.png",
+        description: ""
+    },
+    {
+        id: 17,
+        title: "အိမ်ကလေး ၁၆ လုံး",
+        author: "နေဝင်းမြင့်",
+        price: 7000,
+        category: "Fiction",
+        cover: "",
+        imgUrl:"images/17.png",
+        description: ""
+    },
+    {
+        id: 18,
+        title: "အောင်သင်းစဉ်းစားမိသမျှ",
+        author: "အောင်သင်း",
+        price: 20000,
+        category: "Non-Fiction",
+        cover: "",
+        imgUrl:"images/18.png",
+        description: ""
+    },
+    {
+        id: 19,
+        title: "သပိတ်မှောက် ကျောင်းသား",
+        author: "သိန်းဖေမြင့်",
+        price: 10000,
+        category: "Myanmar History",
+        cover: "",
+        imgUrl:"images/19.png",
+        description: ""
+    },
+    {
+        id: 20,
+        title: "ရာဇကုမာရ",
+        author: "ချစ်ဦးညို",
+        price: 12000,
+        category: "Myanmar History",
+        cover: "",
+        imgUrl:"images/20.png",
+        description: ""
+    },
+    {
+        id: 21,
+        title: "ကဗျာပေါင်းချုပ်",
+        author: "မောင်ချောနွယ်",
+        price: 25000,
+        category: "Poetry",
+        cover: "",
+        imgUrl:"images/21.png",
+        description: ""
+    },
+    {
+        id: 22,
+        title: "ကျေးဇူးတော်လမ်း",
+        author: "စိုင်းဝင်းမြင့်",
+        price: 12000,
+        category: "Poetry",
+        cover: "",
+        imgUrl:"images/22.png",
+        description: ""
+    },
 ];
 
 // User authentication state
