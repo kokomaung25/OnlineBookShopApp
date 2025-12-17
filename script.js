@@ -8,7 +8,8 @@ const books = [
         category: "Poetry",
         cover: "",
         imgUrl:"images/1.webp",
-        description: ""
+        description: "",
+        isbn: "978-9910-00001-7"
     },
     {
         id: 2,
@@ -18,7 +19,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/2.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00002-4"
     },
     {
         id: 3,
@@ -28,7 +30,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/3.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00003-1"
     },
     {
         id: 4,
@@ -38,7 +41,8 @@ const books = [
         category: "Poetry",
         cover: "",
         imgUrl:"images/4.webp",
-        description: ""
+        description: "",
+        isbn: "978-9910-00004-8"
     },
     {
         id: 5,
@@ -48,7 +52,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/5.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00005-5"
     },
     {
         id: 6,
@@ -58,7 +63,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/6.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00006-2"
     },
     {
         id: 7,
@@ -68,7 +74,8 @@ const books = [
         category: "Biography",
         cover: "",
         imgUrl:"images/7.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00007-9"
     },
     
     {
@@ -79,7 +86,8 @@ const books = [
         category: "Biography",
         cover: "",
         imgUrl:"images/8.webp",
-        description: ""
+        description: "",
+        isbn: "978-9910-00008-6"
     },
     {
         id: 9,
@@ -89,7 +97,8 @@ const books = [
         category: "Biography",
         cover: "",
         imgUrl:"images/9.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00009-3"
     },
     {
         id: 10,
@@ -99,7 +108,8 @@ const books = [
         category: "Myanmar History",
         cover: "",
         imgUrl:"images/10.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00010-9"
     },
     {
         id: 11,
@@ -109,7 +119,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/11.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00011-6"
     },
     {
         id: 12,
@@ -119,7 +130,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/12.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00012-3"
     },
     {
         id: 13,
@@ -129,7 +141,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/13.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00013-0"
     },
     {
         id: 14,
@@ -139,7 +152,8 @@ const books = [
         category: "Non-Fiction",
         cover: "",
         imgUrl:"images/14.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00014-7"
     },
     {
         id: 15,
@@ -149,7 +163,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/15.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00015-4"
     },
     {
         id: 16,
@@ -159,7 +174,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/16.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00016-1"
     },
     {
         id: 17,
@@ -169,7 +185,8 @@ const books = [
         category: "Fiction",
         cover: "",
         imgUrl:"images/17.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00017-8"
     },
     {
         id: 18,
@@ -179,7 +196,8 @@ const books = [
         category: "Non-Fiction",
         cover: "",
         imgUrl:"images/18.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00018-5"
     },
     {
         id: 19,
@@ -189,7 +207,8 @@ const books = [
         category: "Myanmar History",
         cover: "",
         imgUrl:"images/19.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00019-2"
     },
     {
         id: 20,
@@ -199,7 +218,8 @@ const books = [
         category: "Myanmar History",
         cover: "",
         imgUrl:"images/20.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00020-8"
     },
     {
         id: 21,
@@ -209,7 +229,8 @@ const books = [
         category: "Poetry",
         cover: "",
         imgUrl:"images/21.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00021-5"
     },
     {
         id: 22,
@@ -219,7 +240,8 @@ const books = [
         category: "Poetry",
         cover: "",
         imgUrl:"images/22.png",
-        description: ""
+        description: "",
+        isbn: "978-9910-00022-2"
     },
 ];
 
@@ -229,6 +251,48 @@ let currentUser = null;
 
 // Cart functionality
 let cart = [];
+// Currently displayed book list (used to re-render with sorting)
+let currentDisplayedBooks = books.slice();
+
+// User storage helpers (localStorage)
+function getUsers() {
+    try {
+        return JSON.parse(localStorage.getItem('users') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveUsers(users) {
+    localStorage.setItem('users', JSON.stringify(users));
+}
+
+function saveUser(user) {
+    const users = getUsers();
+    const existingIndex = users.findIndex(u => u.email === user.email);
+    if (existingIndex !== -1) {
+        users[existingIndex] = { ...users[existingIndex], ...user };
+    } else {
+        users.push(user);
+    }
+    saveUsers(users);
+}
+
+function getUserByEmail(email) {
+    const users = getUsers();
+    return users.find(u => u.email === email) || null;
+}
+
+function updateUserPassword(email, newPassword) {
+    const users = getUsers();
+    const idx = users.findIndex(u => u.email === email);
+    if (idx !== -1) {
+        users[idx].password = newPassword;
+        saveUsers(users);
+        return true;
+    }
+    return false;
+}
 
 // Generate book covers as SVGs
 function generateBookCover(book) {
@@ -271,6 +335,67 @@ function addToCart(book) {
     }
     
     updateCart();
+}
+
+// Add to cart by book id (helper for detail page and safer handlers)
+function addToCartById(bookId) {
+    const book = books.find(b => b.id === Number(bookId));
+    if (!book) return;
+    addToCart(book);
+}
+
+// Show product detail view for a given book id
+function showBookDetails(bookId) {
+    const id = Number(bookId);
+    const book = books.find(b => b.id === id);
+    if (!book) return;
+
+    console.log('Showing details for book ID:', id);
+
+    // Populate detail fields
+    const detailPanel = document.getElementById('product-detail');
+    const imgContainer = document.getElementById('product-detail-image');
+    const titleEl = document.getElementById('product-detail-title');
+    const authorEl = document.getElementById('product-detail-author');
+    const categoryEl = document.getElementById('product-detail-category');
+    const isbnEl = document.getElementById('product-detail-isbn');
+    const priceEl = document.getElementById('product-detail-price');
+    const descEl = document.getElementById('product-detail-description');
+    const addBtn = document.getElementById('product-detail-add');
+
+    if (imgContainer) imgContainer.innerHTML = generateBookCover(book);
+    if (titleEl) titleEl.textContent = book.title;
+    if (authorEl) authorEl.textContent = `by ${book.author}`;
+    if (categoryEl) categoryEl.textContent = book.category;
+    if (isbnEl) isbnEl.textContent = `ISBN: ${book.isbn}`;
+    if (priceEl) priceEl.textContent = `${book.price.toFixed(2)}Ks`;
+    if (descEl) descEl.textContent = book.description || 'No description available.';
+
+    // Wire buttons
+    if (addBtn) {
+        addBtn.onclick = () => {
+            addToCartById(id);
+            // Optionally show cart or message
+            alert('Added to cart');
+        };
+    }
+
+    // Show detail panel, and hide main content and user auth
+    const mainContent = document.getElementById('main-content');
+    const userAuth = document.getElementById('user-auth');
+    if (mainContent) mainContent.classList.add('hidden');
+    if (userAuth) userAuth.classList.add('hidden');
+    if (detailPanel) detailPanel.classList.remove('hidden');
+
+
+    // Ensure back button works
+    const backBtn = document.getElementById('product-detail-back');
+    if (backBtn) {
+        backBtn.onclick = () => {
+            if (detailPanel) detailPanel.classList.add('hidden');
+            if (mainContent) mainContent.classList.remove('hidden');
+        };
+    }
 }
 
 // Remove from cart function
@@ -354,9 +479,34 @@ function updateCart() {
 // Display books
 function displayBooks(booksToDisplay) {
     const booksContainer = document.getElementById('books-container');
+    if (!booksContainer) return;
     booksContainer.innerHTML = '';
+
+    // Keep track of the currently displayed set so sort control can re-render it
+    currentDisplayedBooks = Array.isArray(booksToDisplay) ? booksToDisplay.slice() : [];
+
+    // Show a friendly message when no books match the filter/search
+    if (!currentDisplayedBooks || currentDisplayedBooks.length === 0) {
+        booksContainer.innerHTML = `
+            <div class="col-span-full text-center text-gray-600 py-12">
+                <p class="text-lg font-medium">No Results Found</p>
+                <p class="text-sm">Try a different search term or category.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Apply sorting based on the sort select value (non-destructive)
+    const sortSelect = document.getElementById('sort-select');
+    const sortValue = sortSelect ? sortSelect.value : 'price-asc';
+    const toRender = currentDisplayedBooks.slice();
+    if (sortValue === 'price-asc') {
+        toRender.sort((a, b) => a.price - b.price);
+    } else if (sortValue === 'price-desc') {
+        toRender.sort((a, b) => b.price - a.price);
+    }
     
-    booksToDisplay.forEach(book => {
+    toRender.forEach(book => {
         const bookCard = document.createElement('div');
         bookCard.className = 'book-card bg-white rounded-lg shadow-md overflow-hidden';
         bookCard.innerHTML = `
@@ -366,13 +516,16 @@ function displayBooks(booksToDisplay) {
             <div class="p-4">
                 <h3 class="font-bold text-lg mb-1">${book.title}</h3>
                 <p class="text-gray-600 text-sm mb-2"> ${book.author}</p>
-                <p class="text-gray-700 text-sm mb-4 line-clamp-2 h-10">${book.description}</p>
+                <p class="text-gray-700 text-sm mb-4">${book.category}</p>
+                <span class="font-bold text-lg">${book.price.toFixed(2)}Ks</span>
                 <div class="flex items-center justify-between">
-                    <span class="font-bold text-lg">${book.price.toFixed(2)}Ks</span>
-                    <button class="add-to-cart bg-[#457b9d] hover:bg-[#1d3557] text-white px-3 py-1 rounded-md transition-colors" 
-                        onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
-                        Add to Cart
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button class="view-details bg-white border border-gray-300 text-[#1d3557] px-3 py-1 rounded-md hover:bg-gray-50" onclick="showBookDetails(${book.id})">View Details</button>
+                        <button class="add-to-cart bg-[#457b9d] hover:bg-[#1d3557] text-white px-3 py-1 rounded-md transition-colors" 
+                            onclick="addToCart(${JSON.stringify(book).replace(/\"/g, '&quot;')})">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -712,6 +865,7 @@ window.onload = () => {
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
     const signInButton = document.getElementById('sign-in-button');
+    const logoutButton = document.getElementById('logout-button');
     const userAuth = document.getElementById('user-auth');
     const mainContent = document.getElementById('main-content');
     const loginTab = document.getElementById('login-tab');
@@ -723,6 +877,32 @@ window.onload = () => {
     const backToShopFromAuth = document.getElementById('back-to-shop-from-auth');
     const checkoutProcess = document.getElementById('checkout-process');
     const orderConfirmation = document.getElementById('order-confirmation');
+
+    // Helper to update auth UI
+    function setLoggedInUI(email) {
+        if (signInButton) signInButton.textContent = email;
+        if (logoutButton) logoutButton.classList.remove('hidden');
+    }
+
+    function setLoggedOutUI() {
+        if (signInButton) signInButton.textContent = 'Sign In';
+        if (logoutButton) logoutButton.classList.add('hidden');
+    }
+
+    // Attach logout handler
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            const confirmed = confirm('Are you sure you want to log out?');
+            if (!confirmed) return;
+            isLoggedIn = false;
+            currentUser = null;
+            setLoggedOutUI();
+            // Return to main shopping view
+            userAuth.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            alert('You have been logged out.');
+        });
+    }
     
     // Open cart
     cartButton.addEventListener('click', () => {
@@ -800,57 +980,134 @@ window.onload = () => {
         loginFormContainer.classList.add('hidden');
     });
 
-    // Handle login form submission
+    // Sort select change - re-render current displayed books with new sort
+    const sortSelect = document.getElementById('sort-select');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+            displayBooks(currentDisplayedBooks);
+        });
+    }
+
+    // Handle login form submission (verify against stored users)
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('login-email').value;
+        const email = document.getElementById('login-email').value.trim().toLowerCase();
         const password = document.getElementById('login-password').value;
-        
-        // Simple validation
-        if (email && password) {
-            // In a real app, you would verify credentials with a server
-            isLoggedIn = true;
-            currentUser = { email, userId: email };
-            
-            // Update UI
-            signInButton.textContent = email;
-            
-            // Return to main content
-            mainContent.classList.remove('hidden');
-            userAuth.classList.add('hidden');
-            
-            // Show success message
-            alert('Successfully logged in!');
+
+        if (!email || !password) {
+            alert('Please enter email and password.');
+            return;
+        }
+
+        const storedUser = getUserByEmail(email);
+        if (storedUser) {
+            if (storedUser.password === password) {
+                isLoggedIn = true;
+                currentUser = { email: storedUser.email, userId: storedUser.email, name: storedUser.name };
+                setLoggedInUI(storedUser.email);
+                mainContent.classList.remove('hidden');
+                userAuth.classList.add('hidden');
+                alert('Successfully logged in!');
+            } else {
+                alert('Invalid credentials. Please check your password.');
+            }
+        } else {
+            alert('No account found for this email. Please register first.');
         }
     });
 
-    // Handle register form submission
+    // Handle register form submission (persist user to localStorage)
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
+        const name = document.getElementById('register-name').value.trim();
+        const email = document.getElementById('register-email').value.trim().toLowerCase();
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm-password').value;
-        
-        // Simple validation
-        if (name && email && password && password === confirmPassword) {
-            // In a real app, you would send this data to a server
-            isLoggedIn = true;
-            currentUser = { name, email, userId: email };
-            
-            // Update UI
-            signInButton.textContent = email;
-            
-            // Return to main content
-            mainContent.classList.remove('hidden');
-            userAuth.classList.add('hidden');
-            
-            // Show success message
-            alert('Registration successful! You are now logged in.');
-        } else if (password !== confirmPassword) {
-            alert('Passwords do not match!');
+
+        if (!name || !email || !password) {
+            alert('Please fill in all registration fields.');
+            return;
         }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        const existing = getUserByEmail(email);
+        if (existing) {
+            alert('An account with this email already exists. Please login or use Forgot Password.');
+            return;
+        }
+
+        // Save user (password stored in localStorage for demo purposes)
+        const newUser = { name, email, password };
+        saveUser(newUser);
+
+        isLoggedIn = true;
+        currentUser = { name, email, userId: email };
+        setLoggedInUI(email);
+        mainContent.classList.remove('hidden');
+        userAuth.classList.add('hidden');
+        alert('Registration successful! You are now logged in.');
     });
+
+    // Forgot password flow
+    const forgotPasswordLink = document.getElementById('forgot-password-link');
+    const forgotPasswordContainer = document.getElementById('forgot-password-container');
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+    const backToLoginFromForgot = document.getElementById('back-to-login-from-forgot');
+
+    if (forgotPasswordLink && forgotPasswordContainer && forgotPasswordForm && backToLoginFromForgot) {
+        forgotPasswordLink.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            // show forgot password form, hide login/register forms
+            loginFormContainer.classList.add('hidden');
+            registerFormContainer.classList.add('hidden');
+            forgotPasswordContainer.classList.remove('hidden');
+        });
+
+        backToLoginFromForgot.addEventListener('click', () => {
+            forgotPasswordContainer.classList.add('hidden');
+            loginFormContainer.classList.remove('hidden');
+        });
+
+        forgotPasswordForm.addEventListener('submit', (ev) => {
+            ev.preventDefault();
+            const email = document.getElementById('forgot-email').value.trim().toLowerCase();
+            const newPass = document.getElementById('forgot-new-password').value;
+            const confirmPass = document.getElementById('forgot-confirm-password').value;
+
+            if (!email || !newPass) {
+                alert('Please enter your email and a new password.');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            const user = getUserByEmail(email);
+            if (!user) {
+                alert('No account found with that email.');
+                return;
+            }
+
+            const updated = updateUserPassword(email, newPass);
+            if (updated) {
+                // Auto-login after reset
+                isLoggedIn = true;
+                currentUser = { email: user.email, userId: user.email, name: user.name };
+                setLoggedInUI(user.email);
+                forgotPasswordContainer.classList.add('hidden');
+                loginFormContainer.classList.remove('hidden');
+                alert('Password has been reset. You are now logged in.');
+            } else {
+                alert('Failed to reset password. Please try again.');
+            }
+        });
+    }
     
     // Start checkout process
     checkoutButton.addEventListener('click', () => {
