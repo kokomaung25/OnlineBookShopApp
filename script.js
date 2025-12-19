@@ -321,8 +321,70 @@ function generateBookCover(book) {
     }
 }
 
+// Toast notification function
+function showToast(title, message, type = 'success', duration = 3000) {
+    const toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) return;
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    // Icon based on type
+    let iconSVG = '';
+    if (type === 'success') {
+        iconSVG = `
+            <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="#10b981" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        `;
+    } else if (type === 'error') {
+        iconSVG = `
+            <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="#ef4444" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        `;
+    } else if (type === 'info') {
+        iconSVG = `
+            <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        `;
+    } else if (type === 'warning') {
+        iconSVG = `
+            <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="#f59e0b" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+        `;
+    }
+
+    toast.innerHTML = `
+        ${iconSVG}
+        <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Auto remove after duration
+    setTimeout(() => {
+        toast.classList.add('hiding');
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, duration);
+}
+
 // Add to cart function
 function addToCart(book) {
+    console.log('Adding to cart book in addToCart:', book);
     const existingItem = cart.find(item => item.id === book.id);
     
     if (existingItem) {
@@ -335,22 +397,18 @@ function addToCart(book) {
     }
     
     updateCart();
+
+    // Show toast notification
+    showToast('Added to Cart', `"${book.title}" has been added to your cart`, 'success', 3000);
 }
 
-// Add to cart by book id (helper for detail page and safer handlers)
-function addToCartById(bookId) {
-    const book = books.find(b => b.id === Number(bookId));
-    if (!book) return;
-    addToCart(book);
-}
+
 
 // Show product detail view for a given book id
 function showBookDetails(bookId) {
     const id = Number(bookId);
     const book = books.find(b => b.id === id);
     if (!book) return;
-
-    console.log('Showing details for book ID:', id);
 
     // Populate detail fields
     const detailPanel = document.getElementById('product-detail');
@@ -374,9 +432,10 @@ function showBookDetails(bookId) {
     // Wire buttons
     if (addBtn) {
         addBtn.onclick = () => {
-            addToCartById(id);
-            // Optionally show cart or message
-            alert('Added to cart');
+            const book = books.find(b => b.id === Number(bookId));
+            if (book){
+                addToCart(book);
+            }
         };
     }
 
@@ -434,10 +493,11 @@ function updateCart() {
     checkoutButton.disabled = totalItems === 0;
     
     // Show/hide empty cart message
+    // Add null check on emptyCartMessage
     if (totalItems === 0) {
-        emptyCartMessage.classList.remove('hidden');
+        if (emptyCartMessage) emptyCartMessage.classList.remove('hidden');
     } else {
-        emptyCartMessage.classList.add('hidden');
+        if (emptyCartMessage) emptyCartMessage.classList.add('hidden');
     }
     
     // Update cart items
@@ -604,7 +664,7 @@ function updateCheckoutPage() {
     // Update step 1
     document.getElementById('checkout-cart-items').innerHTML = cart.map(item => `
         <div class="flex items-start border-b border-gray-200 pb-4 mb-4">
-            <div class="w-16 h-24 bg-gray-200 rounded mr-3">
+            <div class="w-30 h-35 rounded mr-3">
                 ${generateBookCover(item)}
             </div>
             <div class="flex-grow">
@@ -1254,6 +1314,102 @@ window.onload = () => {
             billingForm.classList.remove('hidden');
         }
     });
+    
+    // About Us navigation
+    const footerAboutLink = document.getElementById('footer-about-link');
+    const aboutUsSection = document.getElementById('about-us-section');
+    const backFromAbout = document.getElementById('back-from-about');
+    
+    if (footerAboutLink && aboutUsSection) {
+        footerAboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Hide all other sections
+            mainContent.classList.add('hidden');
+            userAuth.classList.add('hidden');
+            checkoutProcess.classList.add('hidden');
+            orderConfirmation.classList.add('hidden');
+            document.getElementById('order-history-section').classList.add('hidden');
+            document.getElementById('contact-us-section').classList.add('hidden');
+            document.getElementById('product-detail').classList.add('hidden');
+            
+            // Show About Us section
+            aboutUsSection.classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+    }
+    
+    if (backFromAbout) {
+        backFromAbout.addEventListener('click', () => {
+            aboutUsSection.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        });
+    }
+    
+    // Contact Us navigation
+    const footerContactLink = document.getElementById('footer-contact-link');
+    const contactUsSection = document.getElementById('contact-us-section');
+    const backFromContact = document.getElementById('back-from-contact');
+    
+    if (footerContactLink && contactUsSection) {
+        footerContactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Hide all other sections
+            mainContent.classList.add('hidden');
+            userAuth.classList.add('hidden');
+            checkoutProcess.classList.add('hidden');
+            orderConfirmation.classList.add('hidden');
+            document.getElementById('order-history-section').classList.add('hidden');
+            aboutUsSection.classList.add('hidden');
+            document.getElementById('product-detail').classList.add('hidden');
+            
+            // Show Contact Us section
+            contactUsSection.classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+    }
+    
+    if (backFromContact) {
+        backFromContact.addEventListener('click', () => {
+            contactUsSection.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        });
+    }
+    
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    const contactFormSuccess = document.getElementById('contact-form-success');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // In a real application, this would send data to a server
+            console.log('Contact form submitted:', { name, email, subject, message });
+            
+            // Show success message
+            contactFormSuccess.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                contactFormSuccess.classList.add('hidden');
+            }, 5000);
+        });
+    }
     
     // Initialize card type icon
     updateCardTypeIcon('visa');
