@@ -678,14 +678,14 @@ function updateCheckoutPage() {
         </div>
     `).join('');
     
-    document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('checkout-tax').textContent = `$${tax.toFixed(2)}`;
-    document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('checkout-subtotal').textContent = `${subtotal.toFixed(2)}Ks`;
+    document.getElementById('checkout-tax').textContent = `${tax.toFixed(2)}Ks`;
+    document.getElementById('checkout-total').textContent = `${total.toFixed(2)}Ks`;
     
     // Update step 3 summary
-    document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
-    document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('summary-subtotal').textContent = `${subtotal.toFixed(2)}Ks`;
+    document.getElementById('summary-tax').textContent = `${tax.toFixed(2)}Ks`;
+    document.getElementById('summary-total').textContent = `${total.toFixed(2)}Ks`;
     
     // Update shipping method radio buttons
     const shippingMethodRadios = document.querySelectorAll('input[name="shipping-method"]');
