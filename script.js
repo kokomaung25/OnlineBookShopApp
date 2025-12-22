@@ -517,7 +517,7 @@ function updateCart() {
                             <span class="mx-2">${item.quantity}</span>
                             <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" class="w-6 h-6 bg-gray-200 rounded flex items-center justify-center">+</button>
                         </div>
-                        <span class="font-medium">$${(item.price * item.quantity).toFixed(2)}</span>
+                        <span class="font-medium">${(item.price * item.quantity).toFixed(2)}Ks</span>
                     </div>
                 </div>
                 <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 ml-2">
@@ -530,7 +530,7 @@ function updateCart() {
     
     // Update total
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `$${total.toFixed(2)}`;
+    cartTotal.textContent = `${total.toFixed(2)}Ks`;
     
     // Update checkout page if it exists
     updateCheckoutPage();
@@ -672,7 +672,7 @@ function updateCheckoutPage() {
                 <p class="text-sm text-gray-600">${item.author}</p>
                 <div class="flex items-center justify-between mt-2">
                     <span class="text-sm text-gray-600">Qty: ${item.quantity}</span>
-                    <span class="font-medium">$${(item.price * item.quantity).toFixed(2)}</span>
+                    <span class="font-medium">${(item.price * item.quantity).toFixed(2)}Ks</span>
                 </div>
             </div>
         </div>
@@ -709,11 +709,11 @@ function updateShippingCost() {
     const tax = subtotal * 0.08;
     const total = subtotal + shippingCost + tax;
     
-    document.getElementById('checkout-shipping').textContent = `$${shippingCost.toFixed(2)}`;
-    document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('checkout-shipping').textContent = `${shippingCost.toFixed(2)}Ks`;
+    document.getElementById('checkout-total').textContent = `${total.toFixed(2)}Ks`;
     
-    document.getElementById('summary-shipping').textContent = `$${shippingCost.toFixed(2)}`;
-    document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('summary-shipping').textContent = `${shippingCost.toFixed(2)}Ks`;
+    document.getElementById('summary-total').textContent = `${total.toFixed(2)}Ks`;
 }
 
 function updateCardTypeIcon(type) {
@@ -776,11 +776,11 @@ function completeOrder() {
     document.getElementById('confirmation-items').innerHTML = cart.map(item => `
         <div class="flex justify-between">
             <span>${item.quantity}x ${item.title}</span>
-            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            <span>${(item.price * item.quantity).toFixed(2)}Ks</span>
         </div>
     `).join('');
     
-    document.getElementById('confirmation-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('confirmation-total').textContent = `${total.toFixed(2)}Ks`;
     
     document.getElementById('shipping-address').innerHTML = `
         ${fullName}<br>
@@ -903,7 +903,7 @@ function loadOrderHistory() {
             </div>
             <div class="mt-2 text-sm text-gray-700">
                 <div>Items: ${order.items.map(i => `${i.quantity}x ${i.title}`).join(', ')}</div>
-                <div>Total: <span class="font-bold">$${order.total.toFixed(2)}</span></div>
+                <div>Total: <span class="font-bold">${order.total.toFixed(2)} Ks</span></div>
                 <div>Estimated Delivery: ${order.deliveryDate}</div>
             </div>
         </div>
