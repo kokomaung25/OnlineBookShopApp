@@ -402,8 +402,6 @@ function addToCart(book) {
     showToast('Added to Cart', `"${book.title}" has been added to your cart`, 'success', 3000);
 }
 
-
-
 // Show product detail view for a given book id
 function showBookDetails(bookId) {
     const id = Number(bookId);
@@ -919,7 +917,6 @@ window.onload = () => {
     const cartSidebar = document.getElementById('cart-sidebar');
     const closeCart = document.getElementById('close-cart');
     const overlay = document.getElementById('overlay');
-    const cartItems = document.getElementById('cart-items');
     const checkoutButton = document.getElementById('checkout-button');
     const myOrderHistoryButton = document.getElementById('myorder-history-button');
     const searchInput = document.getElementById('search-input');
@@ -932,11 +929,13 @@ window.onload = () => {
     const registerTab = document.getElementById('register-tab');
     const loginFormContainer = document.getElementById('login-form-container');
     const registerFormContainer = document.getElementById('register-form-container');
+    const forgotPasswordContainer = document.getElementById('forgot-password-container');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
     const backToShopFromAuth = document.getElementById('back-to-shop-from-auth');
     const checkoutProcess = document.getElementById('checkout-process');
     const orderConfirmation = document.getElementById('order-confirmation');
+    const productDetail = document.getElementById('product-detail');
 
     // Helper to update auth UI
     function setLoggedInUI(email) {
@@ -1017,6 +1016,12 @@ window.onload = () => {
     signInButton.addEventListener('click', () => {
         mainContent.classList.add('hidden');
         userAuth.classList.remove('hidden');
+        loginTab.classList.add('border-[#1d3557]', 'text-[#1d3557]');
+        registerTab.classList.remove('border-[#1d3557]', 'text-[#1d3557]');
+        loginFormContainer.classList.remove('hidden');
+        registerFormContainer.classList.add('hidden');
+        forgotPasswordContainer.classList.add('hidden');
+        if(productDetail) productDetail.classList.add('hidden');
     });
 
     // Back to shopping from auth
@@ -1114,7 +1119,6 @@ window.onload = () => {
 
     // Forgot password flow
     const forgotPasswordLink = document.getElementById('forgot-password-link');
-    const forgotPasswordContainer = document.getElementById('forgot-password-container');
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const backToLoginFromForgot = document.getElementById('back-to-login-from-forgot');
 
@@ -1122,12 +1126,17 @@ window.onload = () => {
         forgotPasswordLink.addEventListener('click', (ev) => {
             ev.preventDefault();
             // show forgot password form, hide login/register forms
+            // hide tabs as well
+            loginTab.classList.add('hidden');
+            registerTab.classList.add('hidden');
             loginFormContainer.classList.add('hidden');
             registerFormContainer.classList.add('hidden');
             forgotPasswordContainer.classList.remove('hidden');
         });
 
         backToLoginFromForgot.addEventListener('click', () => {
+            loginTab.classList.remove('hidden');
+            registerTab.classList.remove('hidden');
             forgotPasswordContainer.classList.add('hidden');
             loginFormContainer.classList.remove('hidden');
         });
