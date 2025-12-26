@@ -308,12 +308,12 @@ function generateBookCover(book) {
 
 
     if(book.imgUrl) {
-        return `<img src="${book.imgUrl}" alt="${book.title}" class="object-cover" style="width: 200px; height: 280px; margin: 0 auto; display: block;">`;
+        return `<img src="${book.imgUrl}" alt="${book.title}" class="object-cover" style="width: 200px; height: 250px; margin: 0 auto; display: block;">`;
     }
     else {      
         return `<svg class="w-full h-48 rounded-t-lg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
             <rect width="200" height="300" fill="${bgColor}" />
-            <rect x="10" y="10" width="180" height="280" fill="rgba(255,255,255,0.1)" />
+            <rect x="10" y="10" width="180" height="250" fill="rgba(255,255,255,0.1)" />
             <text x="100" y="100" font-family="Arial" font-size="16" fill="white" text-anchor="middle">${book.title}</text>
             <text x="100" y="130" font-family="Arial" font-size="12" fill="rgba(255,255,255,0.8)" text-anchor="middle">by ${book.author}</text>
             <text x="100" y="200" font-family="Arial" font-size="14" fill="white" text-anchor="middle">${book.category}</text>
@@ -384,7 +384,6 @@ function showToast(title, message, type = 'success', duration = 3000) {
 
 // Add to cart function
 function addToCart(book) {
-    console.log('Adding to cart book in addToCart:', book);
     const existingItem = cart.find(item => item.id === book.id);
     
     if (existingItem) {
@@ -588,6 +587,29 @@ function displayBooks(booksToDisplay) {
         `;
         booksContainer.appendChild(bookCard);
     });
+
+    const bookDetailsButtons = document.querySelectorAll('.view-details-btn');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    // Attach event listeners to dynamically created book detail buttons
+    bookDetailsButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const bookId = button.getAttribute('data-id');
+            showBookDetails(bookId);
+        });
+    });
+
+    // Attach event listeners to dynamically created add to cart buttons
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const bookData = button.getAttribute('data-book');
+            if (bookData) {
+                const book = JSON.parse(bookData);
+                addToCart(book);
+            }
+        });
+    });
+
 }
 
 // Search functionality
@@ -935,27 +957,6 @@ window.onload = () => {
     const checkoutProcess = document.getElementById('checkout-process');
     const orderConfirmation = document.getElementById('order-confirmation');
     const productDetail = document.getElementById('product-detail');
-    const bookDetailsButtons = document.querySelectorAll('.view-details-btn');
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-
-    // Attach event listeners to dynamically created book detail buttons
-    bookDetailsButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const bookId = button.getAttribute('data-id');
-            showBookDetails(bookId);
-        });
-    });
-
-    // Attach event listeners to dynamically created add to cart buttons
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const bookData = button.getAttribute('data-book');
-            if (bookData) {
-                const book = JSON.parse(bookData);
-                addToCart(book);
-            }
-        });
-    });
 
     // Helper to update auth UI
     function setLoggedInUI(email) {
@@ -977,8 +978,18 @@ window.onload = () => {
             currentUser = null;
             setLoggedOutUI();
             // Return to main shopping view
-            userAuth.classList.add('hidden');
             mainContent.classList.remove('hidden');
+            userAuth.classList.add('hidden');            
+            checkoutProcess.classList.add('hidden');
+            orderConfirmation.classList.add('hidden');
+            productDetail.classList.add('hidden');
+            myOrderHistoryButton.classList.add('hidden');
+            document.getElementById('order-history-section').classList.add('hidden');
+            document.getElementById('about-us-section').classList.add('hidden');
+            document.getElementById('contact-us-section').classList.add('hidden');
+            document.getElementById('cart-count').textContent = '0';
+            cart = [];
+            updateCart();
             alert('You have been logged out.');
         });
     }
@@ -1088,6 +1099,7 @@ window.onload = () => {
         if (storedUser) {
             if (storedUser.password === password) {
                 isLoggedIn = true;
+                if(myOrderHistoryButton) myOrderHistoryButton.classList.remove('hidden');
                 currentUser = { email: storedUser.email, userId: storedUser.email, name: storedUser.name };
                 setLoggedInUI(storedUser.email);
                 mainContent.classList.remove('hidden');
@@ -1321,6 +1333,12 @@ window.onload = () => {
             showOrderHistory();
         }
     });
+
+    if(isLoggedIn) {
+        myOrderHistoryButton.classList.remove('hidden');
+    }else {
+        myOrderHistoryButton.classList.add('hidden');
+    }
     
     // Continue shopping from order history
     document.getElementById('back-to-shopping').addEventListener('click', () => {
