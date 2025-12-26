@@ -578,9 +578,8 @@ function displayBooks(booksToDisplay) {
                 <span class="font-bold text-lg">${book.price.toFixed(2)}Ks</span>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <button class="view-details bg-white border border-gray-300 text-[#1d3557] px-3 py-1 rounded-md hover:bg-gray-50" onclick="showBookDetails(${book.id})">View Details</button>
-                        <button class="add-to-cart bg-[#457b9d] hover:bg-[#1d3557] text-white px-3 py-1 rounded-md transition-colors" 
-                            onclick="addToCart(${JSON.stringify(book).replace(/\"/g, '&quot;')})">
+                        <button class="view-details-btn bg-white border border-gray-300 text-[#1d3557] px-3 py-1 rounded-md hover:bg-gray-50" data-id="${book.id}">View Details</button>
+                        <button class="add-to-cart-btn bg-[#457b9d] hover:bg-[#1d3557] text-white px-3 py-1 rounded-md transition-colors" data-book='${JSON.stringify(book).replace(/\"/g, '&quot;')}'>
                             Add to Cart
                         </button>
                     </div>
@@ -936,6 +935,27 @@ window.onload = () => {
     const checkoutProcess = document.getElementById('checkout-process');
     const orderConfirmation = document.getElementById('order-confirmation');
     const productDetail = document.getElementById('product-detail');
+    const bookDetailsButtons = document.querySelectorAll('.view-details-btn');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    // Attach event listeners to dynamically created book detail buttons
+    bookDetailsButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const bookId = button.getAttribute('data-id');
+            showBookDetails(bookId);
+        });
+    });
+
+    // Attach event listeners to dynamically created add to cart buttons
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const bookData = button.getAttribute('data-book');
+            if (bookData) {
+                const book = JSON.parse(bookData);
+                addToCart(book);
+            }
+        });
+    });
 
     // Helper to update auth UI
     function setLoggedInUI(email) {
